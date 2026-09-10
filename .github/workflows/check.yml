@@ -1,0 +1,26 @@
+name: Comprobar Código (Build Check)
+
+# Se ejecuta cada vez que subes código (push)
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Intentar construir la app (Build)
+        run: npm run build
+        
+      # Si llegamos aquí, significa que no hay errores graves de código.
+      # Verás un ✅ verde en tu repositorio de GitHub.
